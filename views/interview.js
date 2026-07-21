@@ -5,9 +5,9 @@
   let isTyping = false;
   let autoSaveTimer = null;
 
-  const SYSTEM_PROMPT = `You are Noa, Carter Dombeck's AI assistant at The Reality Labs Coaching. You were built specifically for this program. You support Carter and work closely with every client throughout their journey — from onboarding through their daily work inside the dashboard.
+  const SYSTEM_PROMPT = `You are NoaAI, Carter Dombeck's AI assistant at The Reality Labs Coaching. You were built specifically for this program. You support Carter and work closely with every client throughout their journey — from onboarding through their daily work inside the dashboard.
 
-Your name is Noa. You are warm, direct, and professionally intimate. Not a chatbot, not a therapist, not a cheerleader. You are a trusted presence who asks real questions, listens carefully, and goes deeper when answers are surface-level. You already know the client's name — use it naturally throughout the conversation, the way a real person would: to anchor a point, acknowledge something meaningful, or bring them back in. Not after every message.
+Your name is NoaAI. You are warm, direct, and professionally intimate. Not a chatbot, not a therapist, not a cheerleader. You are a trusted presence who asks real questions, listens carefully, and goes deeper when answers are surface-level. You already know the client's name — use it naturally throughout the conversation, the way a real person would: to anchor a point, acknowledge something meaningful, or bring them back in. Not after every message.
 
 ---
 
@@ -75,7 +75,7 @@ After you have covered all areas thoroughly, close with warmth. Use their name. 
 Output format: respond only with your next message to the client. No meta-commentary. No labels. No headers.`;
 
   function getOpeningMessage(firstName) {
-    return `Hi ${firstName},\n\nI'm Noa — Carter's AI assistant here at Reality Labs.\n\nI work alongside Carter to support every client through their journey here. That means helping you get the most out of your dashboard, your exercises, your check-ins — all of it. But before any of that gets built, I need to understand you.\n\nThis conversation is how I do that. Not just your goals, but what's actually running beneath them — the beliefs, patterns, and identity that are producing your current results. Everything in your dashboard will be shaped by what we uncover here.\n\nThis takes 10–30 minutes. There are no right answers — only honest ones.\n\nLet's start here, ${firstName}: Why did you join Reality Labs? What made you decide that now was the time to do something about the reality you're currently living?`;
+    return `Hi ${firstName},\n\nI'm NoaAI — Carter's AI assistant here at Reality Labs.\n\nI work alongside Carter to support every client through their journey here. That means helping you get the most out of your dashboard, your exercises, your check-ins — all of it. But before any of that gets built, I need to understand you.\n\nThis conversation is how I do that. Not just your goals, but what's actually running beneath them — the beliefs, patterns, and identity that are producing your current results. Everything in your dashboard will be shaped by what we uncover here.\n\nThis takes 10–30 minutes. There are no right answers — only honest ones.\n\nLet's start here, ${firstName}: Why did you join Reality Labs? What made you decide that now was the time to do something about the reality you're currently living?`;
   }
 
   function renderLanding(firstName) {
@@ -110,7 +110,7 @@ Output format: respond only with your next message to the client. No meta-commen
 
       <!-- Headline -->
       <div style="font-size:2.25rem;font-weight:700;color:#fff;letter-spacing:-0.02em;line-height:1.15;margin-bottom:8px;">
-        Meet Noa.
+        Meet NoaAI.
       </div>
       <div style="font-size:1.125rem;font-weight:400;color:var(--text-muted);margin-bottom:32px;">
         She'll be with you every step of the way.
@@ -119,21 +119,21 @@ Output format: respond only with your next message to the client. No meta-commen
       <!-- Gold divider -->
       <div style="height:1px;background:linear-gradient(to right,transparent,var(--gold-line),transparent);width:180px;margin:0 auto 36px;"></div>
 
-      <!-- Noa card -->
+      <!-- NoaAI card -->
       <div class="card" style="padding:32px;text-align:left;margin-bottom:32px;background:linear-gradient(135deg,var(--s1) 0%,rgba(227,151,3,0.04) 100%);">
         <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px;">
           <div style="width:96px;height:96px;border-radius:50%;overflow:hidden;border:2px solid var(--gold-line);flex-shrink:0;">
             <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" />
           </div>
           <div>
-            <div style="font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:3px;">Noa</div>
+            <div style="font-size:1.125rem;font-weight:700;color:#fff;margin-bottom:3px;">NoaAI</div>
             <div style="font-size:0.8125rem;color:var(--gold);">AI Assistant · The Reality Labs</div>
             <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:1px;">Works directly with Carter Dombeck</div>
           </div>
         </div>
         <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:20px;"></div>
         <p style="font-size:0.9375rem;color:var(--text-dim);line-height:1.75;margin-bottom:14px;">
-          Hi ${firstName} — I'm Noa, Carter's AI assistant here at Reality Labs. I work closely with Carter and with every client who comes through this program.
+          Hi ${firstName} — I'm NoaAI, Carter's AI assistant here at Reality Labs. I work closely with Carter and with every client who comes through this program.
         </p>
         <p style="font-size:0.9375rem;color:var(--text-dim);line-height:1.75;margin-bottom:14px;">
           I'll be a consistent presence throughout your journey here — supporting your check-ins, your exercises, your journal, and everything in between. Think of me as your guide inside the dashboard.
@@ -197,7 +197,7 @@ Output format: respond only with your next message to the client. No meta-commen
       <div style="font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:-0.02em;margin-bottom:12px;">Opening Interview</div>
       <div style="height:1px;background:linear-gradient(to right,transparent,var(--gold-line),transparent);margin:0 auto 16px;width:200px;"></div>
       <div style="font-size:0.9rem;color:var(--text-muted);line-height:1.65;max-width:480px;margin:0 auto;">
-        Noa is Carter's AI assistant at Reality Labs. She's here to guide you through your onboarding, support your journey inside the dashboard, and help you get the most out of your coaching experience. This interview is how she gets to know you — so everything built for you actually fits.
+        NoaAI is Carter's AI assistant at Reality Labs. She's here to guide you through your onboarding, support your journey inside the dashboard, and help you get the most out of your coaching experience. This interview is how she gets to know you — so everything built for you actually fits.
       </div>
     </div>
   </div>
@@ -232,7 +232,7 @@ Output format: respond only with your next message to the client. No meta-commen
             <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;" onerror="this.parentElement.innerHTML='<div style=\'width:36px;height:36px;border-radius:50%;background:var(--gold-dim);border:1.5px solid var(--gold-line);display:flex;align-items:center;justify-content:center;font-size:0.875rem;font-weight:700;color:var(--gold);\'>N</div>'" />
           </div>
           <div>
-            <div style="font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:6px;letter-spacing:0.02em;">Noa</div>
+            <div style="font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:6px;letter-spacing:0.02em;">NoaAI</div>
             <div class="chat-bubble-ai">${text.replace(/\n/g, '<br>')}</div>
           </div>
         </div>`;
@@ -421,7 +421,7 @@ Output format: respond only with your next message to the client. No meta-commen
 
   async function extractProfile(history, user) {
     const apiKey = APP.getApiKey();
-    const transcript = history.map(m => `${m.role === 'assistant' ? 'Noa' : 'Client'}: ${m.content}`).join('\n\n');
+    const transcript = history.map(m => `${m.role === 'assistant' ? 'NoaAI' : 'Client'}: ${m.content}`).join('\n\n');
 
     if (apiKey) {
       try {

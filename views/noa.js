@@ -1,4 +1,4 @@
-// ─── Noa AI Page ──────────────────────────────────────────────────────────────
+// ─── NoaAI Page ───────────────────────────────────────────────────────────────
 (function() {
   APP.register('noa', () => {
     const content = `
@@ -7,7 +7,7 @@
   <!-- Header -->
   <div class="fade-in" style="margin-bottom:48px;">
     <div class="label" style="margin-bottom:8px;">Your AI Guide</div>
-    <div style="font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;">Meet Noa.</div>
+    <div style="font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;">Meet NoaAI.</div>
   </div>
 
   <!-- Hero card -->
@@ -23,7 +23,7 @@
           <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" />
         </div>
         <div style="text-align:center;margin-top:14px;">
-          <div style="font-size:1.125rem;font-weight:700;color:#fff;">Noa</div>
+          <div style="font-size:1.125rem;font-weight:700;color:#fff;">NoaAI</div>
           <div style="font-size:0.8125rem;color:var(--gold);margin-top:2px;">AI Assistant</div>
           <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">The Reality Labs</div>
         </div>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <!-- What Noa does -->
+  <!-- What NoaAI does -->
   <div class="fade-in-delay-2" style="margin-bottom:24px;">
     <div class="label" style="margin-bottom:16px;">What I Do</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
@@ -106,7 +106,7 @@
       </div>
       <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:0.9375rem;color:var(--gold);font-style:italic;">"Your reality responds to your subconscious. My job is to help you understand what yours is saying."</div>
-        <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:6px;">Noa</div>
+        <div style="font-size:0.8125rem;color:var(--text-muted);margin-top:6px;">NoaAI</div>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@
   <div style="padding:20px 24px;background:var(--s1);border:1px solid rgba(255,255,255,0.06);border-radius:8px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
     <img src="TRLLogomain.png" style="width:32px;height:32px;opacity:0.8;flex-shrink:0;" />
     <div style="font-size:0.875rem;color:var(--text-muted);line-height:1.6;">
-      Noa is powered by Claude AI and built exclusively for The Reality Labs Coaching platform. She operates under Carter Dombeck's framework and is not a general-purpose AI tool.
+      NoaAI is powered by Claude AI and built exclusively for The Reality Labs Coaching platform. She operates under Carter Dombeck's framework and is not a general-purpose AI tool.
     </div>
   </div>
 

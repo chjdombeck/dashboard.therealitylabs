@@ -29,7 +29,7 @@
           <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" />
         </div>
         <div>
-          <div style="font-size:0.9375rem;font-weight:600;color:#fff;">Noa</div>
+          <div style="font-size:0.9375rem;font-weight:600;color:#fff;">NoaAI</div>
           <div style="font-size:0.75rem;color:var(--gold);">Vision Interview</div>
         </div>
       </div>
@@ -39,7 +39,7 @@
     <!-- Intro explanation -->
     <div style="background:rgba(227,151,3,0.06);border:1px solid rgba(227,151,3,0.15);border-radius:8px;padding:14px 16px;margin-bottom:18px;">
       <div style="font-size:0.875rem;color:var(--text-dim);line-height:1.65;">
-        <strong style="color:#fff;">How this works:</strong> Use this conversation to talk with Noa about your desired reality. She'll ask you 4–5 focused questions to get specific and detailed on your vision. When the interview is complete, Noa will generate suggestions for each section of your Vision Board below — and you choose what to add.
+        <strong style="color:#fff;">How this works:</strong> Use this conversation to talk with NoaAI about your desired reality. She'll ask you 4–5 focused questions to get specific and detailed on your vision. When the interview is complete, NoaAI will generate suggestions for each section of your Vision Board below — and you choose what to add.
       </div>
     </div>
 
@@ -51,7 +51,7 @@
         ? `<div style="text-align:center;padding:16px 0;"><div style="font-size:0.875rem;color:var(--text-muted);">Interview complete. Use the sections below — or redo the interview to start fresh.</div></div>`
         : `<div id="vision-chat-loading" style="display:flex;align-items:center;gap:10px;padding:4px 0;">
              <div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--gold-line);flex-shrink:0;"><img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" /></div>
-             <div style="font-size:0.875rem;color:var(--text-muted);font-style:italic;">Noa is getting ready…</div>
+             <div style="font-size:0.875rem;color:var(--text-muted);font-style:italic;">NoaAI is getting ready…</div>
            </div>`}
     </div>
 
@@ -63,7 +63,7 @@
         <button id="vision-chat-send" class="btn-gold" style="padding:10px 20px;height:fit-content;align-self:flex-end;">Send</button>
       </div>
       <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-        <div id="vision-noa-typing" style="display:none;font-size:0.75rem;color:var(--text-muted);font-style:italic;">Noa is thinking…</div>
+        <div id="vision-noa-typing" style="display:none;font-size:0.75rem;color:var(--text-muted);font-style:italic;">NoaAI is thinking…</div>
       </div>
     </div>
 
@@ -237,7 +237,7 @@
       }
     } catch(e) {}
 
-    const SYSTEM_PROMPT = `You are Noa, Carter Dombeck's AI assistant at The Reality Labs Coaching.
+    const SYSTEM_PROMPT = `You are NoaAI, Carter Dombeck's AI assistant at The Reality Labs Coaching.
 
 Your job right now is a focused Vision Interview. Ask this client 4–5 targeted questions — one at a time — to build a vivid, detailed picture of their desired reality. Their answers will be used to populate their Vision Board.
 
@@ -366,7 +366,7 @@ Output: respond only with your next message. No labels or meta-commentary.`;
       document.getElementById('vision-chat-mic')
     );
 
-    // Noa asks first
+    // NoaAI asks first
     await sendToNoa(null);
   }
 
@@ -385,7 +385,7 @@ Output: respond only with your next message. No labels or meta-commentary.`;
 
     const visionConversation = visionHistory
       .filter(m => !m.content.includes('Please begin the vision interview'))
-      .map(m => `${m.role === 'user' ? firstName : 'Noa'}: ${m.content.replace('[VISION_INTERVIEW_COMPLETE]','').trim()}`)
+      .map(m => `${m.role === 'user' ? firstName : 'NoaAI'}: ${m.content.replace('[VISION_INTERVIEW_COMPLETE]','').trim()}`)
       .join('\n\n');
 
     const extractPrompt = `Extract structured vision board data from this coaching interview. Return ONLY a valid JSON object with these exact fields — no markdown, no code fences, no explanation:
@@ -492,7 +492,7 @@ ${onboardingContext ? `ONBOARDING CONTEXT:\n${onboardingContext.slice(0, 2000)}\
         <div style="background:rgba(227,151,3,0.08);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
           <div style="display:flex;align-items:center;gap:8px;">
             <div style="width:18px;height:18px;border-radius:50%;overflow:hidden;border:1px solid var(--gold-line);flex-shrink:0;"><img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" /></div>
-            <div style="font-size:0.75rem;color:var(--gold);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">Noa's suggestion</div>
+            <div style="font-size:0.75rem;color:var(--gold);font-weight:600;letter-spacing:0.04em;text-transform:uppercase;">NoaAI's suggestion</div>
           </div>
           <div style="display:flex;gap:8px;">
             <button id="accept-${sectionKey}" class="btn-gold" style="font-size:0.75rem;padding:5px 14px;">Add to ${sectionLabel}</button>

@@ -1,7 +1,7 @@
 // ─── Live From The End ────────────────────────────────────────────────────────
 (function() {
 
-  const SYSTEM_PROMPT = (profile, transcript) => `You are Noa, the AI assistant for The Reality Labs Coaching platform.
+  const SYSTEM_PROMPT = (profile, transcript) => `You are NoaAI, the AI assistant for The Reality Labs Coaching platform.
 
 Right now you are conducting a "Live From The End" session with a client. This is a subconscious reprogramming exercise. The entire conversation takes place AS IF the client's desired reality is already completely done. It has already happened. They are already living it. You do not speak about it as something coming — you speak about it as something that IS.
 
@@ -69,7 +69,7 @@ Output format: respond only with your next message. No meta-commentary. No label
         <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" />
       </div>
       <div>
-        <div style="font-size:0.9375rem;font-weight:600;color:#fff;">Noa</div>
+        <div style="font-size:0.9375rem;font-weight:600;color:#fff;">NoaAI</div>
         <div style="display:flex;align-items:center;gap:6px;">
           <div style="width:7px;height:7px;border-radius:50%;background:#4ade80;"></div>
           <div style="font-size:0.75rem;color:var(--text-muted);">Live from the End</div>
@@ -97,7 +97,7 @@ Output format: respond only with your next message. No meta-commentary. No label
           This is your sandbox for subconscious reprogramming. In this space, your desired reality is not something you're working toward. <strong style="color:#fff;">It's already done.</strong> You are already living it. Right now.
         </p>
         <p style="font-size:0.9375rem;color:var(--text-dim);line-height:1.7;margin-bottom:14px;">
-          Noa will meet you there. She already knows your life: your business, your income, your home, your daily experience. She'll ask you how your day is going, what you did this morning, how your clients are, how your body feels. Your job is to answer from inside that reality, in present tense, with as much sensory detail as you can.
+          NoaAI will meet you there. She already knows your life: your business, your income, your home, your daily experience. She'll ask you how your day is going, what you did this morning, how your clients are, how your body feels. Your job is to answer from inside that reality, in present tense, with as much sensory detail as you can.
         </p>
         <p style="font-size:0.9375rem;color:#000;line-height:1.7;margin-bottom:16px;background:#E39703;padding:10px 14px;border-radius:6px;font-weight:500;">
           The more real you make it, the feelings, the specific numbers, the textures of that life, the more your subconscious accepts it as true. That's the work. This isn't visualization. This is reality. The frequency is already here. It's your job to live on it.
@@ -154,7 +154,7 @@ Output format: respond only with your next message. No meta-commentary. No label
     <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" />
   </div>
   <div>
-    <div style="font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:5px;">Noa</div>
+    <div style="font-size:0.75rem;font-weight:600;color:var(--gold);margin-bottom:5px;">NoaAI</div>
     <div class="chat-bubble-ai">${text.replace(/\n/g, '<br>')}</div>
   </div>
 </div>`;
@@ -276,7 +276,7 @@ Output format: respond only with your next message. No meta-commentary. No label
       const sendBtn = document.getElementById('lfe-send');
       if (!input || !sendBtn) return;
 
-      // Opening message from Noa
+      // Opening message from NoaAI
       const opening = getOpeningMessage(profile);
       addMessage('assistant', opening);
       conversationHistory.push({ role: 'assistant', content: opening });

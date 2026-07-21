@@ -477,7 +477,7 @@
   <div class="fade-in" style="margin-bottom:32px;"><div class="label" style="margin-bottom:8px;">Configuration</div><div style="font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;">Settings</div></div>
   <div class="card" style="padding:28px;margin-bottom:20px;">
     <div style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:6px;">Anthropic API Key</div>
-    <div style="font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;">Required for Noa's interview, check-in reflections, and journal prompts.</div>
+    <div style="font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;">Required for NoaAI's interview, check-in reflections, and journal prompts.</div>
     ${currentKey?`<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><span style="font-size:0.875rem;color:#4ade80;font-weight:500;">Key active</span><span style="font-size:0.8125rem;color:var(--text-muted);font-family:monospace;">${masked}</span></div>`:
     `<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:6px;"><span style="font-size:0.875rem;color:#f87171;">No key set — AI running in demo mode</span></div>`}
     <div><label class="label" style="display:block;margin-bottom:8px;">Update Key</label><input class="input" type="password" id="api-key-input" placeholder="sk-ant-api03-..." style="font-family:monospace;" /></div>

@@ -305,7 +305,7 @@
         <div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--gold-line);flex-shrink:0;">
           <img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" />
         </div>
-        <div style="font-size:0.8125rem;font-weight:600;color:var(--gold);">Noa</div>
+        <div style="font-size:0.8125rem;font-weight:600;color:var(--gold);">NoaAI</div>
       </div>
       <div style="font-size:0.9375rem;color:var(--text-dim);line-height:1.75;font-style:italic;">"${reflection}"</div>
     </div>
@@ -330,7 +330,7 @@
       const transcriptContext = transcript?.length
         ? `\n\nINTERVIEW MEMORY (what they shared in their onboarding):\n${transcript.filter(m=>m.role==='user').map(m=>m.content).join('\n').slice(0,2000)}`
         : '';
-      const system = `You are Noa, the AI assistant for The Reality Labs Coaching platform. A client just completed their daily check-in.
+      const system = `You are NoaAI, the AI assistant for The Reality Labs Coaching platform. A client just completed their daily check-in.
 
 Their profile: ${JSON.stringify(profile)}
 Their alignment score today: ${alignmentScore}/10${transcriptContext}
