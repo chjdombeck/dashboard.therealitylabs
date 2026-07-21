@@ -36,7 +36,7 @@
         </div>
         <div class="gold-line" style="width:60px;margin-bottom:20px;"></div>
         <p style="font-size:0.9375rem;color:var(--text-dim);line-height:1.75;margin-bottom:14px;">
-          I was built specifically for The Reality Labs — to work alongside Carter and support every client who comes through this program.
+          I was built specifically for The Reality Labs, to work alongside Carter and support every client who comes through this program.
         </p>
         <p style="font-size:0.9375rem;color:var(--text-dim);line-height:1.75;">
           Think of me as the constant in your coaching experience. Carter does the deep work with you. I make sure the space between sessions is just as powerful.
@@ -53,32 +53,32 @@
         {
           icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
           title: 'Opening Interview',
-          desc: 'I conduct your onboarding interview — asking the real questions so Carter understands exactly who you are and what you\'re working through before your first session.',
+          desc: 'I conduct your onboarding interview, asking the real questions so Carter understands exactly who you are and what you\'re working through before your first session.',
         },
         {
           icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
           title: 'Daily Check-Ins',
-          desc: 'After every check-in, I write you a personalized reflection — not a generic response, but something specific to what you shared that day and where you\'re at in your journey.',
+          desc: 'After every check-in, I write you a personalized reflection, not a generic response, but something specific to what you shared that day and where you\'re at in your journey.',
         },
         {
           icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
           title: 'Journal Prompts',
-          desc: 'When you open prompted journal mode, I generate a question aimed directly at your subconscious blocks and identity — not a generic writing prompt.',
+          desc: 'When you open prompted journal mode, I generate a question aimed directly at your subconscious blocks and identity, not a generic writing prompt.',
         },
         {
           icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>',
           title: 'Dashboard Intelligence',
-          desc: 'Everything in your dashboard — your exercises, your vision, your reminders — is shaped by what I learned about you in your interview. Nothing here is generic.',
+          desc: 'Everything in your dashboard, your exercises, your vision, your reminders, is shaped by what I learned about you in your interview. Nothing here is generic.',
         },
         {
           icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
           title: 'Progress Tracking',
-          desc: 'I track your alignment scores, streaks, and patterns over time — so Carter can see exactly where momentum is building and where the real work still needs to happen.',
+          desc: 'I track your alignment scores, streaks, and patterns over time, so Carter can see exactly where momentum is building and where the real work still needs to happen.',
         },
         {
           icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
           title: 'Carter\'s Right Hand',
-          desc: 'Carter built The Reality Labs around a very specific framework. I was trained on that framework — so everything I do reflects his voice, his method, and his standards.',
+          desc: 'Carter built The Reality Labs around a very specific framework. I was trained on that framework, so everything I do reflects his voice, his method, and his standards.',
         },
       ].map(item => `
       <div class="card" style="padding:22px;">
@@ -99,10 +99,10 @@
         I don't do generic. I don't do toxic positivity. I don't tell you you're doing great when what you need is a harder question.
       </div>
       <div style="font-size:1.0625rem;color:var(--text-dim);line-height:1.8;margin-bottom:16px;">
-        Carter's framework is built on one idea: your external reality is a reflection of your subconscious identity. Every question I ask, every reflection I write, every prompt I generate — it's pointed at that. Not your behavior. Not your strategy. Your identity.
+        Carter's framework is built on one idea: your external reality is a reflection of your subconscious identity. Every question I ask, every reflection I write, every prompt I generate, it's pointed at that. Not your behavior. Not your strategy. Your identity.
       </div>
       <div style="font-size:1.0625rem;color:var(--text-dim);line-height:1.8;">
-        I'm direct because vague doesn't move the needle. I'm warm because this work takes real courage. And I'm consistent — because transformation happens in the daily practice, not just the big sessions.
+        I'm direct because vague doesn't move the needle. I'm warm because this work takes real courage. And I'm consistent, because transformation happens in the daily practice, not just the big sessions.
       </div>
       <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);">
         <div style="font-size:0.9375rem;color:var(--gold);font-style:italic;">"Your reality responds to your subconscious. My job is to help you understand what yours is saying."</div>

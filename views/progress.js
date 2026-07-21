@@ -45,7 +45,7 @@
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:28px;">
-    ${[{label:'Current Streak',value:streak,unit:streak===1?'day':'days',color:'var(--gold)'},{label:'Check-Ins',value:checkIns.length,unit:'total',color:'#fff'},{label:'Avg Alignment',value:avgAlignment||'—',unit:'/10',color:avgAlignment>=7?'#4ade80':'#fff'},{label:'Exercises',value:completedEx,unit:'completed',color:'#fff'},{label:'Journal',value:journal.length,unit:'entries',color:'#fff'},{label:'Meditations',value:totalMedSessions,unit:'sessions',color:'#fff'}].map(s=>`
+    ${[{label:'Current Streak',value:streak,unit:streak===1?'day':'days',color:'var(--gold)'},{label:'Check-Ins',value:checkIns.length,unit:'total',color:'#fff'},{label:'Avg Alignment',value:avgAlignment||'-',unit:'/10',color:avgAlignment>=7?'#4ade80':'#fff'},{label:'Exercises',value:completedEx,unit:'completed',color:'#fff'},{label:'Journal',value:journal.length,unit:'entries',color:'#fff'},{label:'Meditations',value:totalMedSessions,unit:'sessions',color:'#fff'}].map(s=>`
     <div class="card" style="padding:18px;"><div class="label" style="margin-bottom:10px;">${s.label}</div><div style="display:flex;align-items:baseline;gap:4px;"><div style="font-size:2rem;font-weight:700;color:${s.color};line-height:1;">${s.value}</div><div style="font-size:0.75rem;color:var(--text-muted);">${s.unit}</div></div></div>`).join('')}
   </div>
 

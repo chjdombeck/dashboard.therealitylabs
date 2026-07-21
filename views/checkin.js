@@ -4,50 +4,50 @@
   // ── Question Bank ──────────────────────────────────────────────────────────
   const QUESTION_BANK = {
     desired_reality: [
-      { type: 'text', key: 'q1', question: 'Describe one specific detail you can see in your mind right now about your desired reality. Make it vivid — what do you see, feel, or hear?' },
+      { type: 'text', key: 'q1', question: 'Describe one specific detail you can see in your mind right now about your desired reality. Make it vivid, what do you see, feel, or hear?' },
       { type: 'text', key: 'q1', question: 'If you woke up tomorrow fully living your desired reality, what\'s the first thing you\'d notice that\'s different?' },
-      { type: 'text', key: 'q1', question: 'Describe your ideal morning — in your desired reality, already done. What does the first hour look like?' },
-      { type: 'text', key: 'q1', question: 'What does money feel like in your desired reality? Not how much — how does it feel in your body to have it?' },
+      { type: 'text', key: 'q1', question: 'Describe your ideal morning, in your desired reality, already done. What does the first hour look like?' },
+      { type: 'text', key: 'q1', question: 'What does money feel like in your desired reality? Not how much, how does it feel in your body to have it?' },
       { type: 'text', key: 'q1', question: 'Who are you surrounded by in your desired reality? Describe one person or relationship that\'s part of that life.' },
-      { type: 'text', key: 'q1', question: 'What does your workspace or environment look like in your desired reality? Be specific — what do you see when you look around?' },
+      { type: 'text', key: 'q1', question: 'What does your workspace or environment look like in your desired reality? Be specific, what do you see when you look around?' },
       { type: 'text', key: 'q1', question: 'What\'s one thing your future self does on a Tuesday that your current self doesn\'t?' },
       { type: 'text', key: 'q1', question: 'In your desired reality, how do you feel when you wake up? What\'s the first emotion that hits before you even get out of bed?' },
     ],
     belief_system: [
-      { type: 'text', key: 'q2', question: 'What is one belief that ran in the background today — something you felt or assumed without questioning it?' },
+      { type: 'text', key: 'q2', question: 'What is one belief that ran in the background today, something you felt or assumed without questioning it?' },
       { type: 'text', key: 'q2', question: 'What belief about yourself would need to change for your desired reality to feel inevitable?' },
       { type: 'text', key: 'q2', question: 'Name one belief you\'ve been carrying that no longer belongs to the version of you that you\'re becoming.' },
       { type: 'text', key: 'q2', question: 'What story did you tell yourself today about why something is hard, slow, or not working? Be honest.' },
       { type: 'text', key: 'q2', question: 'What do you currently believe about money that isn\'t serving you? Where did that belief come from?' },
       { type: 'text', key: 'q2', question: 'What\'s one belief your future self holds that your current self is still resisting?' },
-      { type: 'text', key: 'q2', question: 'What belief supported you today — one that felt true, empowering, and aligned with who you\'re becoming?' },
+      { type: 'text', key: 'q2', question: 'What belief supported you today, one that felt true, empowering, and aligned with who you\'re becoming?' },
       { type: 'text', key: 'q2', question: 'Finish this sentence honestly: "Deep down, I still believe I\'m not ready because..."' },
     ],
     identity: [
-      { type: 'text', key: 'q3', question: 'Who were you being today — not what you did, but who you were being? Does that person match your desired identity?' },
-      { type: 'text', key: 'q3', question: 'What would your future self have done differently today? Be specific — one decision, one moment.' },
+      { type: 'text', key: 'q3', question: 'Who were you being today, not what you did, but who you were being? Does that person match your desired identity?' },
+      { type: 'text', key: 'q3', question: 'What would your future self have done differently today? Be specific, one decision, one moment.' },
       { type: 'text', key: 'q3', question: 'Describe the version of you that already has everything you want. How does that person carry themselves?' },
       { type: 'text', key: 'q3', question: 'Where today did your current identity show up instead of your desired identity? What did it look like?' },
-      { type: 'text', key: 'q3', question: 'Complete this: "I am the kind of person who..." — write it as your future self, not your current self.' },
+      { type: 'text', key: 'q3', question: 'Complete this: "I am the kind of person who...", write it as your future self, not your current self.' },
       { type: 'text', key: 'q3', question: 'What part of your old identity are you still protecting? What would it cost to let it go?' },
       { type: 'text', key: 'q3', question: 'What does the identity you\'re stepping into actually require you to give up? Are you willing?' },
-      { type: 'text', key: 'q3', question: 'How did you show up for yourself today? Honest answer — not what you wish you\'d done.' },
+      { type: 'text', key: 'q3', question: 'How did you show up for yourself today? Honest answer, not what you wish you\'d done.' },
     ],
     patterns: [
-      { type: 'text', key: 'q4', question: 'What pattern showed up today — a thought, behavior, or feeling you\'ve seen before? What\'s the belief underneath it?' },
+      { type: 'text', key: 'q4', question: 'What pattern showed up today, a thought, behavior, or feeling you\'ve seen before? What\'s the belief underneath it?' },
       { type: 'text', key: 'q4', question: 'Where did you self-sabotage today, even in a small way? What triggered it?' },
       { type: 'text', key: 'q4', question: 'What are you avoiding right now that your future self would have already done?' },
       { type: 'text', key: 'q4', question: 'What recurring thought kept surfacing today? What is your subconscious trying to tell you?' },
-      { type: 'text', key: 'q4', question: 'When did you shrink today — played small, held back, or didn\'t speak up? What was running underneath that?' },
+      { type: 'text', key: 'q4', question: 'When did you shrink today, played small, held back, or didn\'t speak up? What was running underneath that?' },
       { type: 'text', key: 'q4', question: 'What pattern are you most aware of right now that\'s keeping your current reality in place?' },
       { type: 'text', key: 'q4', question: 'Where did fear show up today? What did it tell you not to do?' },
-      { type: 'text', key: 'q4', question: 'What did you do today that your past self always does — and your future self no longer needs to do?' },
+      { type: 'text', key: 'q4', question: 'What did you do today that your past self always does, and your future self no longer needs to do?' },
     ],
     grading: [
       { type: 'slider', key: 'identityScore', question: 'On a scale of 1–10, how aligned was your behavior today with your desired identity?', label: 'Identity Alignment' },
       { type: 'slider', key: 'clarityScore', question: 'On a scale of 1–10, how clear do you feel right now on what you\'re building and why?', label: 'Clarity' },
-      { type: 'slider', key: 'commitmentScore', question: 'On a scale of 1–10, how committed do you feel to your desired reality right now — not to the work, to the vision?', label: 'Commitment' },
-      { type: 'slider', key: 'presenceScore', question: 'On a scale of 1–10, how present did you feel today — actually here, not in your head?', label: 'Presence' },
+      { type: 'slider', key: 'commitmentScore', question: 'On a scale of 1–10, how committed do you feel to your desired reality right now, not to the work, to the vision?', label: 'Commitment' },
+      { type: 'slider', key: 'presenceScore', question: 'On a scale of 1–10, how present did you feel today, actually here, not in your head?', label: 'Presence' },
       { type: 'slider', key: 'momentumScore', question: 'On a scale of 1–10, how much momentum are you feeling in the direction of your desired reality?', label: 'Momentum' },
     ],
     action: [
@@ -319,7 +319,7 @@
     const apiKey = APP.getApiKey();
     if (!apiKey) {
       const reflections = [
-        `The pattern you identified today is the program. It's not a character flaw — it's an installed belief running on autopilot. The fact that you can name it means you're no longer fully inside it.`,
+        `The pattern you identified today is the program. It's not a character flaw, it's an installed belief running on autopilot. The fact that you can name it means you're no longer fully inside it.`,
         `Notice the gap between the identity you described and the one that showed up today. That gap is not failure. That gap is the work.`,
         `What you wrote about your desired reality is already real in your subconscious. The more vividly you return to it, the more the external world reorganizes to match it.`,
         `The belief you named is the ceiling. Your results will never outgrow it until the identity beneath it changes. You're in the right place.`,
@@ -336,10 +336,11 @@ Their profile: ${JSON.stringify(profile)}
 Their alignment score today: ${alignmentScore}/10${transcriptContext}
 
 Write a 2–3 sentence reflection in Carter Dombeck's voice: direct, warm, grounded, identity-first.
-Reference something specific from what they actually wrote today — not generic encouragement.
+Reference something specific from what they actually wrote today, not generic encouragement.
 Connect what they shared back to their specific desired reality or blocks from their interview if relevant.
 Never say "great job", "amazing", or any generic praise.
-End with something that points them forward or a slightly uncomfortable truth.`;
+End with something that points them forward or a slightly uncomfortable truth.
+Never use em dashes (—) anywhere in your response. Use periods or commas instead.`;
 
       const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',

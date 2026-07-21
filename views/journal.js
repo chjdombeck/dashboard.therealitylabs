@@ -70,7 +70,7 @@
       <button class="btn-gold" id="save-entry" style="font-size:0.875rem;padding:10px 20px;">Save Entry</button>
     </div>
   </div>
-  ${isScripting?`<div style="margin-bottom:20px;padding:16px 20px;background:rgba(227,151,3,0.06);border:1px solid rgba(227,151,3,0.2);border-radius:8px;font-size:0.875rem;color:var(--gold);font-style:italic;">Write as if it's already done. Present tense. No "I will" — only "I am" and "I have."</div>`:''}
+  ${isScripting?`<div style="margin-bottom:20px;padding:16px 20px;background:rgba(227,151,3,0.06);border:1px solid rgba(227,151,3,0.2);border-radius:8px;font-size:0.875rem;color:var(--gold);font-style:italic;">Write as if it's already done. Present tense. No "I will", only "I am" and "I have."</div>`:''}
   ${isPrompted&&prompt?`<div style="margin-bottom:20px;padding:20px;background:var(--s1);border:1px solid rgba(227,151,3,0.2);border-radius:8px;"><div class="label" style="margin-bottom:8px;">Today's Prompt</div><div style="font-size:0.9375rem;color:var(--text-dim);line-height:1.6;font-style:italic;">"${prompt}"</div></div>`:''}
   <div style="position:relative;">
     <textarea id="journal-content" class="input" placeholder="Write what's true… or click the mic to speak it." style="min-height:400px;font-size:1rem;line-height:1.7;width:100%;padding-right:56px;"></textarea>

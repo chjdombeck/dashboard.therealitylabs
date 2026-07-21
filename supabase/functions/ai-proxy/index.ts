@@ -1,4 +1,4 @@
-// Supabase Edge Function — ai-proxy
+// Supabase Edge Function, ai-proxy
 // Keeps the Anthropic API key server-side. Never exposed to the browser.
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';

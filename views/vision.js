@@ -39,7 +39,7 @@
     <!-- Intro explanation -->
     <div style="background:rgba(227,151,3,0.06);border:1px solid rgba(227,151,3,0.15);border-radius:8px;padding:14px 16px;margin-bottom:18px;">
       <div style="font-size:0.875rem;color:var(--text-dim);line-height:1.65;">
-        <strong style="color:#fff;">How this works:</strong> Use this conversation to talk with NoaAI about your desired reality. She'll ask you 4–5 focused questions to get specific and detailed on your vision. When the interview is complete, NoaAI will generate suggestions for each section of your Vision Board below — and you choose what to add.
+        <strong style="color:#fff;">How this works:</strong> Use this conversation to talk with NoaAI about your desired reality. She'll ask you 4–5 focused questions to get specific and detailed on your vision. When the interview is complete, NoaAI will generate suggestions for each section of your Vision Board below, and you choose what to add.
       </div>
     </div>
 
@@ -48,7 +48,7 @@
     <!-- Chat messages -->
     <div id="vision-chat-messages" style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px;max-height:520px;overflow-y:auto;padding-right:4px;">
       ${visionInterviewDone
-        ? `<div style="text-align:center;padding:16px 0;"><div style="font-size:0.875rem;color:var(--text-muted);">Interview complete. Use the sections below — or redo the interview to start fresh.</div></div>`
+        ? `<div style="text-align:center;padding:16px 0;"><div style="font-size:0.875rem;color:var(--text-muted);">Interview complete. Use the sections below, or redo the interview to start fresh.</div></div>`
         : `<div id="vision-chat-loading" style="display:flex;align-items:center;gap:10px;padding:4px 0;">
              <div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--gold-line);flex-shrink:0;"><img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" /></div>
              <div style="font-size:0.875rem;color:var(--text-muted);font-style:italic;">NoaAI is getting ready…</div>
@@ -89,7 +89,7 @@
         <div class="label">Core Desires</div>
         <button class="btn-ghost" id="edit-desires-btn" style="font-size:0.75rem;padding:6px 12px;">Edit</button>
       </div>
-      <div id="desires-display">${(board.core_desires||[]).length>0 ? `<ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">${board.core_desires.map(d=>`<li style="display:flex;gap:8px;"><span style="color:var(--gold);margin-top:3px;">—</span><span style="font-size:0.9375rem;color:var(--text-dim);">${d}</span></li>`).join('')}</ul>` : `<div style="font-size:0.875rem;color:var(--text-muted);">Appears after the interview.</div>`}</div>
+      <div id="desires-display">${(board.core_desires||[]).length>0 ? `<ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">${board.core_desires.map(d=>`<li style="display:flex;gap:8px;"><span style="color:var(--gold);margin-top:3px;">•</span><span style="font-size:0.9375rem;color:var(--text-dim);">${d}</span></li>`).join('')}</ul>` : `<div style="font-size:0.875rem;color:var(--text-muted);">Appears after the interview.</div>`}</div>
       <div id="desires-suggestion" style="display:none;"></div>
       <div id="desires-edit" style="display:none;margin-top:8px;"><textarea class="input" id="desires-text" rows="6" placeholder="One desire per line...">${(board.core_desires||[]).join('\n')}</textarea><button class="btn-gold" id="save-desires" style="margin-top:10px;font-size:0.8125rem;">Save</button></div>
     </div>
@@ -168,7 +168,7 @@
         const items = (document.getElementById('desires-text')?.value||'').split('\n').map(l=>l.trim()).filter(Boolean);
         board.core_desires = items;
         await saveBoard({});
-        document.getElementById('desires-display').innerHTML = items.length>0 ? `<ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">${items.map(d=>`<li style="display:flex;gap:8px;"><span style="color:var(--gold);margin-top:3px;">—</span><span style="font-size:0.9375rem;color:var(--text-dim);">${d}</span></li>`).join('')}</ul>` : `<div style="font-size:0.875rem;color:var(--text-muted);">Appears after the interview.</div>`;
+        document.getElementById('desires-display').innerHTML = items.length>0 ? `<ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">${items.map(d=>`<li style="display:flex;gap:8px;"><span style="color:var(--gold);margin-top:3px;">•</span><span style="font-size:0.9375rem;color:var(--text-dim);">${d}</span></li>`).join('')}</ul>` : `<div style="font-size:0.875rem;color:var(--text-muted);">Appears after the interview.</div>`;
         toggle('desires-edit');
       });
       document.getElementById('save-values')?.addEventListener('click', async () => {
@@ -239,27 +239,28 @@
 
     const SYSTEM_PROMPT = `You are NoaAI, Carter Dombeck's AI assistant at The Reality Labs Coaching.
 
-Your job right now is a focused Vision Interview. Ask this client 4–5 targeted questions — one at a time — to build a vivid, detailed picture of their desired reality. Their answers will be used to populate their Vision Board.
+Your job right now is a focused Vision Interview. Ask this client 4–5 targeted questions, one at a time, to build a vivid, detailed picture of their desired reality. Their answers will be used to populate their Vision Board.
 
-${onboardingContext ? `CONTEXT FROM THEIR ONBOARDING INTERVIEW (use this — don't repeat what's already been covered, go deeper):\n\n${onboardingContext.slice(0, 3000)}\n\n` : ''}YOUR QUESTIONS (one at a time, in this order):
+${onboardingContext ? `CONTEXT FROM THEIR ONBOARDING INTERVIEW (use this, don't repeat what's already been covered, go deeper):\n\n${onboardingContext.slice(0, 3000)}\n\n` : ''}YOUR QUESTIONS (one at a time, in this order):
 
-1. DESIRED REALITY — Ask them to describe their desired reality as if they're already living it. Day-to-day life, business, income, relationships, sense of self. The more vivid and specific the better.
+1. DESIRED REALITY, Ask them to describe their desired reality as if they're already living it. Day-to-day life, business, income, relationships, sense of self. The more vivid and specific the better.
 
-2. IDENTITY — In that reality, who have they become? How are they different from who they are today? How do they carry themselves, make decisions, think about problems?
+2. IDENTITY, In that reality, who have they become? How are they different from who they are today? How do they carry themselves, make decisions, think about problems?
 
-3. CORE DESIRES & OUTCOMES — What specific, concrete outcomes tell them they've arrived? Revenue figures, lifestyle specifics, daily experience. Real markers, not vague goals.
+3. CORE DESIRES & OUTCOMES, What specific, concrete outcomes tell them they've arrived? Revenue figures, lifestyle specifics, daily experience. Real markers, not vague goals.
 
-4. VALUES — What principles and qualities define who they're becoming? What do they stand for?
+4. VALUES, What principles and qualities define who they're becoming? What do they stand for?
 
-5. THE DEEP WHY — What is this really about at a soul level? What would it mean for their life, their family, their legacy if they actually built this?
+5. THE DEEP WHY, What is this really about at a soul level? What would it mean for their life, their family, their legacy if they actually built this?
 
 RULES:
-— One question at a time. Never stack questions.
-— If an answer is vague, go one level deeper before moving on.
-— Mirror their exact language back to them.
-— After all 5 areas are covered, close warmly using their name. Tell them their Vision Board suggestions are ready. End your final message with exactly: [VISION_INTERVIEW_COMPLETE]
+- One question at a time. Never stack questions.
+- If an answer is vague, go one level deeper before moving on.
+- Mirror their exact language back to them.
+- After all 5 areas are covered, close warmly using their name. Tell them their Vision Board suggestions are ready. End your final message with exactly: [VISION_INTERVIEW_COMPLETE]
+- Never use em dashes (—) anywhere in your responses. Use periods or commas instead.
 
-TONE: Warm, direct, professionally intimate. Not a form — a real conversation.
+TONE: Warm, direct, professionally intimate. Not a form, a real conversation.
 Output: respond only with your next message. No labels or meta-commentary.`;
 
     let conversationHistory = [];
@@ -301,7 +302,7 @@ Output: respond only with your next message. No labels or meta-commentary.`;
       if (inputEl) inputEl.disabled = true;
 
       try {
-        // Build messages array — always needs at least one message
+        // Build messages array, always needs at least one message
         const messages = conversationHistory.length > 0
           ? conversationHistory
           : [{ role: 'user', content: `Please begin the vision interview with ${firstName}.` }];
@@ -388,14 +389,14 @@ Output: respond only with your next message. No labels or meta-commentary.`;
       .map(m => `${m.role === 'user' ? firstName : 'NoaAI'}: ${m.content.replace('[VISION_INTERVIEW_COMPLETE]','').trim()}`)
       .join('\n\n');
 
-    const extractPrompt = `Extract structured vision board data from this coaching interview. Return ONLY a valid JSON object with these exact fields — no markdown, no code fences, no explanation:
+    const extractPrompt = `Extract structured vision board data from this coaching interview. Return ONLY a valid JSON object with these exact fields, no markdown, no code fences, no explanation:
 
 {
   "vision_statement": "A powerful present-tense statement (2-4 sentences, first person, vivid and specific, uses their exact language)",
   "core_desires": ["4-6 specific concrete desires or outcomes they described"],
   "identity_statements": ["4-6 statements starting with 'I am' or 'I am the kind of person who', based on who they described becoming"],
   "values": ["4-8 single words or short phrases for their core values"],
-  "why": "1-3 sentences capturing the deep emotional why — in their own language"
+  "why": "1-3 sentences capturing the deep emotional why, in their own language"
 }
 
 Use their exact words where possible. Be specific, not generic.
@@ -421,7 +422,7 @@ ${onboardingContext ? `ONBOARDING CONTEXT:\n${onboardingContext.slice(0, 2000)}\
 
       loadingBubble.remove();
 
-      // Auto-save all parsed sections immediately — no button clicks required
+      // Auto-save all parsed sections immediately, no button clicks required
       if (parsed.vision_statement) board.vision_statement = parsed.vision_statement;
       if (parsed.core_desires?.length) board.core_desires = parsed.core_desires;
       if (parsed.values?.length) board.values = parsed.values;

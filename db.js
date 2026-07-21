@@ -1,4 +1,4 @@
-// ─── Database Layer — all Supabase operations ────────────────────────────────
+// ─── Database Layer, all Supabase operations ────────────────────────────────
 // Replaces all localStorage calls. Every function is async.
 
 const DB = {
@@ -66,13 +66,13 @@ const DB = {
     // Client profile
     localStorage.setItem(`rl_demo_profile_${uid}`, JSON.stringify({
       user_id: uid,
-      desired_reality: 'Running a 6-figure coaching business with complete time freedom — working with clients I love, from anywhere in the world.',
+      desired_reality: 'Running a 6-figure coaching business with complete time freedom, working with clients I love, from anywhere in the world.',
       current_reality: 'Generating inconsistent revenue, struggling to sign clients consistently, feeling stuck despite doing all the right things externally.',
       core_beliefs: ['I have to work hard for everything', 'Success takes longer for me than others'],
       blocks: ['Self-doubt before sales calls', 'Imposter syndrome', 'Procrastination on visibility'],
       identity: 'An entrepreneur who operates from aligned identity rather than fear or strategy alone.',
       values: ['Freedom', 'Impact', 'Authenticity', 'Growth', 'Abundance'],
-      why: 'To prove to myself that my results are not fixed — and to build the life I know is possible.',
+      why: 'To prove to myself that my results are not fixed, and to build the life I know is possible.',
       key_language: ['freedom', 'aligned', 'identity', 'reality', 'blocks'],
     }));
 
@@ -80,7 +80,7 @@ const DB = {
     localStorage.setItem(`rl_demo_vision_${uid}`, JSON.stringify({
       user_id: uid,
       vision_statement: 'I am living and working from complete freedom. My business generates consistent $20K months. I work with clients who are all-in, I set my own schedule, and I wake up every day knowing exactly who I am and what I\'m building.',
-      core_desires: ['Financial freedom — $20K/month minimum', 'Location independence', 'Deep, meaningful client relationships', 'A brand that reflects who I truly am'],
+      core_desires: ['Financial freedom, $20K/month minimum', 'Location independence', 'Deep, meaningful client relationships', 'A brand that reflects who I truly am'],
       identity_statements: ['I am the kind of person who signs clients from a place of confidence.', 'I am the kind of person who shows up consistently.', 'I am the kind of person who leads from identity, not fear.', 'I am the kind of person who builds what they envision.'],
       values: ['Freedom', 'Impact', 'Authenticity', 'Growth', 'Abundance'],
       why: 'Because I know what\'s possible, and settling for less is no longer an option.',
@@ -92,7 +92,7 @@ const DB = {
     localStorage.setItem(`rl_demo_exercises_${uid}`, JSON.stringify([
       { id: 'dce-1', user_id: uid, exercise_id: 'ex-1', status: 'assigned', response: '', assigned_at: new Date(today - 2*86400000).toISOString(), completed_at: null, assigned_by: 'demo-admin-1' },
       { id: 'dce-2', user_id: uid, exercise_id: 'ex-2', status: 'assigned', response: '', assigned_at: new Date(today - 1*86400000).toISOString(), completed_at: null, assigned_by: 'demo-admin-1' },
-      { id: 'dce-3', user_id: uid, exercise_id: 'ex-4', status: 'completed', response: 'Writing this letter cracked something open. My future self is calm, certain, and unapologetic about what they want. That calmness — I need to bring that into today.', assigned_at: new Date(today - 5*86400000).toISOString(), completed_at: new Date(today - 3*86400000).toISOString(), assigned_by: 'demo-admin-1' },
+      { id: 'dce-3', user_id: uid, exercise_id: 'ex-4', status: 'completed', response: 'Writing this letter cracked something open. My future self is calm, certain, and unapologetic about what they want. That calmness, I need to bring that into today.', assigned_at: new Date(today - 5*86400000).toISOString(), completed_at: new Date(today - 3*86400000).toISOString(), assigned_by: 'demo-admin-1' },
     ]));
 
     // Check-ins (last 5 days)
@@ -101,13 +101,13 @@ const DB = {
     for (let i = 4; i >= 0; i--) {
       const d = new Date(today); d.setDate(d.getDate() - i);
       const ds = d.toISOString().split('T')[0];
-      checkins.push({ id: `dci-${i}`, user_id: uid, date: ds, alignment_score: scores[4-i], gratitude: 'My clarity and my commitment to this process.', supporting_belief: 'I am becoming who I need to be.', limiting_belief: 'I\'m not moving fast enough.', today_action: 'Send outreach to 3 ideal clients.', energy_score: 7, focus_score: 6, emotional_score: 8, ai_reflection: 'The belief that you\'re not moving fast enough is a timing story — and timing stories are identity stories. Your future self didn\'t get there faster. They just stopped measuring themselves against someone else\'s clock.', created_at: d.toISOString() });
+      checkins.push({ id: `dci-${i}`, user_id: uid, date: ds, alignment_score: scores[4-i], gratitude: 'My clarity and my commitment to this process.', supporting_belief: 'I am becoming who I need to be.', limiting_belief: 'I\'m not moving fast enough.', today_action: 'Send outreach to 3 ideal clients.', energy_score: 7, focus_score: 6, emotional_score: 8, ai_reflection: 'The belief that you\'re not moving fast enough is a timing story, and timing stories are identity stories. Your future self didn\'t get there faster. They just stopped measuring themselves against someone else\'s clock.', created_at: d.toISOString() });
     }
     DB.demoSet(`checkins_${uid}`, checkins);
 
     // Journal entries
     DB.demoSet(`journal_${uid}`, [
-      { id: 'dj-1', user_id: uid, date: new Date(today - 86400000).toISOString().split('T')[0], mode: 'scripting', prompt: null, content: 'It\'s two years from now. I just got off a call with my 8th client this month. My calendar is full — not because I chased anyone, but because my identity radiates what I stand for. I work from my home office in the morning and spend my afternoons doing whatever I want. Money is not a source of stress. It flows in consistently because I show up as the version of me who creates results.', word_count: 82, tags: ['Scripting', 'Vision'], coach_access_enabled: false, created_at: new Date(today - 86400000).toISOString(), updated_at: new Date(today - 86400000).toISOString() },
+      { id: 'dj-1', user_id: uid, date: new Date(today - 86400000).toISOString().split('T')[0], mode: 'scripting', prompt: null, content: 'It\'s two years from now. I just got off a call with my 8th client this month. My calendar is full, not because I chased anyone, but because my identity radiates what I stand for. I work from my home office in the morning and spend my afternoons doing whatever I want. Money is not a source of stress. It flows in consistently because I show up as the version of me who creates results.', word_count: 82, tags: ['Scripting', 'Vision'], coach_access_enabled: false, created_at: new Date(today - 86400000).toISOString(), updated_at: new Date(today - 86400000).toISOString() },
       { id: 'dj-2', user_id: uid, date: new Date(today - 3*86400000).toISOString().split('T')[0], mode: 'prompted', prompt: 'What pattern keeps showing up in your business? What belief is underneath it?', content: 'The pattern is avoidance right before I need to be visible. I delay posting, delay reaching out, delay showing up fully. The belief underneath it is: "If I fully show up and it still doesn\'t work, I\'ll have no excuses left." Avoidance is protection. The identity that produces this behavior is someone who is afraid of finding out who they really are when there\'s nothing left to hide behind.', word_count: 78, tags: ['Shadow Work', 'Breakthrough'], coach_access_enabled: true, created_at: new Date(today - 3*86400000).toISOString(), updated_at: new Date(today - 3*86400000).toISOString() },
     ]);
 
@@ -149,14 +149,14 @@ const DB = {
       .eq('role', 'client')
       .order('created_at', { ascending: false });
     const liveClients = (!error && data) ? data : [];
-    // Merge — live clients take precedence, demo fills the rest
+    // Merge, live clients take precedence, demo fills the rest
     const liveIds = liveClients.map(c => c.id);
     const merged = [...liveClients, ...demoClients.filter(d => !liveIds.includes(d.id))];
     return merged;
   },
 
   async createClient({ firstName, lastName, username, password }) {
-    // Generate a hidden system email from username — clients never see or use this
+    // Generate a hidden system email from username, clients never see or use this
     const email = DB.usernameToEmail(username);
     const { data, error } = await sb.auth.signUp({
       email,

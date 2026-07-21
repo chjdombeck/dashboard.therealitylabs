@@ -59,7 +59,7 @@
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;">
         <div style="display:flex;align-items:center;gap:12px;">
           ${(()=>{ const av=DB.getAvatar(c.id); const ini=`${c.first_name?.[0]||''}${c.last_name?.[0]||''}`.toUpperCase(); return `<div style="width:42px;height:42px;border-radius:50%;overflow:hidden;border:2px solid rgba(227,151,3,0.3);background:rgba(227,151,3,0.1);display:flex;align-items:center;justify-content:center;font-size:0.875rem;font-weight:700;color:var(--gold);flex-shrink:0;">${av?`<img src="${av}" style="width:100%;height:100%;object-fit:cover;" />`:ini}</div>`; })()}
-          <div><div style="font-size:1rem;font-weight:600;color:#fff;">${c.first_name} ${c.last_name}</div><div style="font-size:0.8125rem;color:var(--text-muted);margin-top:2px;">@${c.username||'—'}</div></div>
+          <div><div style="font-size:1rem;font-weight:600;color:#fff;">${c.first_name} ${c.last_name}</div><div style="font-size:0.8125rem;color:var(--text-muted);margin-top:2px;">@${c.username||'-'}</div></div>
         </div>
         <span class="badge ${c.is_active?'badge-green':'badge-muted'}">${c.is_active?'Active':'Inactive'}</span>
       </div>
@@ -105,7 +105,7 @@
     <div class="card" style="padding:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:12px;">
         ${(()=>{ const av=DB.getAvatar(c.id); const ini=`${c.first_name?.[0]||''}${c.last_name?.[0]||''}`.toUpperCase(); return `<div style="width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid rgba(227,151,3,0.3);background:rgba(227,151,3,0.1);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:700;color:var(--gold);flex-shrink:0;">${av?`<img src="${av}" style="width:100%;height:100%;object-fit:cover;" />`:ini}</div>`; })()}
-        <div><div style="font-size:0.9375rem;font-weight:600;color:#fff;">${c.first_name} ${c.last_name}</div><div style="font-size:0.8125rem;color:var(--text-muted);">@${c.username||'—'}</div></div>
+        <div><div style="font-size:0.9375rem;font-weight:600;color:#fff;">${c.first_name} ${c.last_name}</div><div style="font-size:0.8125rem;color:var(--text-muted);">@${c.username||'-'}</div></div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <span class="badge ${c.is_active?'badge-green':'badge-muted'}">${c.is_active?'Active':'Inactive'}</span>
@@ -196,10 +196,10 @@
   <div class="card" style="padding:24px;margin-bottom:20px;">
     <div class="label" style="margin-bottom:14px;">Client Profile</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">DESIRED REALITY</div><div style="font-size:0.875rem;color:var(--text-dim);">${clientProfile.desired_reality||'—'}</div></div>
-      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">IDENTITY</div><div style="font-size:0.875rem;color:var(--text-dim);">${clientProfile.identity||'—'}</div></div>
-      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">BLOCKS</div><div style="font-size:0.875rem;color:var(--text-dim);">${(clientProfile.blocks||[]).join(', ')||'—'}</div></div>
-      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">VALUES</div><div style="font-size:0.875rem;color:var(--text-dim);">${(clientProfile.values||[]).join(', ')||'—'}</div></div>
+      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">DESIRED REALITY</div><div style="font-size:0.875rem;color:var(--text-dim);">${clientProfile.desired_reality||'-'}</div></div>
+      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">IDENTITY</div><div style="font-size:0.875rem;color:var(--text-dim);">${clientProfile.identity||'-'}</div></div>
+      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">BLOCKS</div><div style="font-size:0.875rem;color:var(--text-dim);">${(clientProfile.blocks||[]).join(', ')||'-'}</div></div>
+      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">VALUES</div><div style="font-size:0.875rem;color:var(--text-dim);">${(clientProfile.values||[]).join(', ')||'-'}</div></div>
     </div>
   </div>`:`<div class="card" style="padding:20px;margin-bottom:20px;color:var(--text-muted);font-size:0.875rem;">Interview not completed yet.</div>`}
 
@@ -387,7 +387,7 @@
     setTimeout(() => {
       bindAdmin();
 
-      // Coach post — after saving, prepend card immediately without reload
+      // Coach post, after saving, prepend card immediately without reload
       document.getElementById('coach-post-btn')?.addEventListener('click', async () => {
         const text = document.getElementById('coach-post-text')?.value.trim();
         if (!text) return;
@@ -479,7 +479,7 @@
     <div style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:6px;">Anthropic API Key</div>
     <div style="font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;">Required for NoaAI's interview, check-in reflections, and journal prompts.</div>
     ${currentKey?`<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><span style="font-size:0.875rem;color:#4ade80;font-weight:500;">Key active</span><span style="font-size:0.8125rem;color:var(--text-muted);font-family:monospace;">${masked}</span></div>`:
-    `<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:6px;"><span style="font-size:0.875rem;color:#f87171;">No key set — AI running in demo mode</span></div>`}
+    `<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:6px;"><span style="font-size:0.875rem;color:#f87171;">No key set, AI running in demo mode</span></div>`}
     <div><label class="label" style="display:block;margin-bottom:8px;">Update Key</label><input class="input" type="password" id="api-key-input" placeholder="sk-ant-api03-..." style="font-family:monospace;" /></div>
     <div style="display:flex;gap:10px;margin-top:14px;"><button class="btn-gold" id="save-api-key">Save Key</button>${currentKey?`<button class="btn-ghost" id="clear-api-key" style="color:#f87171;border-color:rgba(239,68,68,0.3);">Remove</button>`:''}</div>
     <div id="key-saved-msg" style="display:none;margin-top:12px;font-size:0.875rem;color:#4ade80;">Saved.</div>

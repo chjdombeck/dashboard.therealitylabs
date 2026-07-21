@@ -326,14 +326,14 @@
         html += `<div data-cal-date="${dateStr}" data-bg="${bg}" style="min-height:58px;padding:5px 6px;border-radius:6px;cursor:pointer;background:${bg};border:1px solid ${isToday?'rgba(227,151,3,0.4)':'rgba(255,255,255,0.06)'};position:relative;transition:background 0.1s;">
           <div style="font-size:0.8125rem;font-weight:${isToday?'700':'400'};color:${isToday?'var(--gold)':'var(--text-dim)'}; pointer-events:none;">${day}</div>`;
 
-        // one-time events — draggable chips
+        // one-time events, draggable chips
         oneTime.forEach((text, idx) => {
           html += `<div draggable="true" data-drag-date="${dateStr}" data-drag-idx="${idx}" data-evt-chip="1"
             style="font-size:0.625rem;color:var(--gold);background:rgba(227,151,3,0.15);border-radius:3px;padding:2px 5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:grab;"
             title="${text}">${text}</div>`;
         });
 
-        // recurring events — not draggable
+        // recurring events, not draggable
         recurring.slice(0, Math.max(0, 3 - oneTime.length)).forEach(r => {
           html += `<div data-evt-chip="1" style="font-size:0.625rem;color:#a78bfa;background:rgba(167,139,250,0.12);border-radius:3px;padding:2px 5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="↻ ${r.text}">${r.text}</div>`;
         });
@@ -355,7 +355,7 @@
         const origBg = cell.dataset.bg;
 
         cell.addEventListener('click', e => {
-          if (e.target.dataset.dragDate) return; // chip click — handled by chip
+          if (e.target.dataset.dragDate) return; // chip click, handled by chip
           openCalModal(dateStr);
         });
 
@@ -521,7 +521,7 @@
 
   window.dashboardShell = dashboardShell;
 
-  // ── Avatar upload — wired after every shell render ───────────────────────────
+  // ── Avatar upload, wired after every shell render ───────────────────────────
   window.initAvatarUpload = function() {
     const input = document.getElementById('avatar-file-input');
     const avatar = document.getElementById('sidebar-avatar');
