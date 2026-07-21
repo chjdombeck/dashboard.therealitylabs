@@ -7,9 +7,12 @@
     <div style="padding:20px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
       <img src="RealityLabsLogo.png" style="width:180px;mix-blend-mode:lighten;opacity:0.95;" />
     </div>
-    <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
-      <div style="font-size:0.8125rem;font-weight:600;color:#fff;">Carter Dombeck</div>
-      <div style="font-size:0.75rem;color:var(--gold);margin-top:2px;">Admin · Coach</div>
+    <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:12px;">
+      ${(()=>{ const u = APP.STATE.currentUser; const av = DB.getAvatar(u?.id); const ini = `${u?.first_name?.[0]||''}${u?.last_name?.[0]||''}`.toUpperCase() || 'CD'; return `<div style="width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid rgba(227,151,3,0.4);background:rgba(227,151,3,0.12);display:flex;align-items:center;justify-content:center;font-size:0.875rem;font-weight:700;color:var(--gold);flex-shrink:0;">${av?`<img src="${av}" style="width:100%;height:100%;object-fit:cover;"/>`:ini}</div>`; })()}
+      <div>
+        <div style="font-size:0.8125rem;font-weight:600;color:#fff;">${APP.STATE.currentUser?.first_name||'Carter'} ${APP.STATE.currentUser?.last_name||'Dombeck'}</div>
+        <div style="font-size:0.75rem;color:var(--gold);margin-top:2px;">Admin · Coach</div>
+      </div>
     </div>
     <nav style="padding:12px;flex:1;">
       ${[
