@@ -360,64 +360,95 @@ Output format: respond only with your next message to the client. No meta-commen
   async function finishInterview() {
     // Show loading screen
     const app = document.getElementById('app');
+    const BUILD_MS = 45000;
+    const STAGES = [
+      'Analyzing your responses...',
+      'Identifying your subconscious patterns...',
+      'Mapping your desired reality...',
+      'Building your personalized exercises...',
+      'Creating your vision board...',
+      'Finalizing your dashboard...',
+    ];
     app.innerHTML = `
 <div style="min-height:100vh;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;">
   <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(227,151,3,0.07) 0%,transparent 70%);pointer-events:none;"></div>
   <img src="TRLLogomain.png" style="width:64px;height:64px;animation:pulse 2s ease infinite;" />
   <div style="text-align:center;">
     <div style="font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:8px;">Building your Reality Labs dashboard...</div>
-    <div style="font-size:0.9375rem;color:var(--text-muted);">Personalizing your journey</div>
+    <div id="load-stage" style="font-size:0.9375rem;color:var(--text-muted);">${STAGES[0]}</div>
   </div>
   <div style="width:240px;height:2px;background:var(--s3);border-radius:1px;overflow:hidden;">
-    <div id="load-bar" style="height:100%;background:var(--gold);width:0%;border-radius:1px;transition:width 300ms ease;"></div>
+    <div id="load-bar" style="height:100%;background:var(--gold);width:0%;border-radius:1px;transition:width 200ms linear;"></div>
   </div>
+  <div id="load-timer" style="font-size:0.8125rem;color:var(--text-muted);letter-spacing:0.04em;">0:45</div>
 </div>`;
 
-    // Animate progress bar
-    let w = 0;
     const bar = document.getElementById('load-bar');
-    const interval = setInterval(() => {
-      w = Math.min(w + Math.random() * 15, 95);
-      if (bar) bar.style.width = w + '%';
-    }, 300);
+    const stageEl = document.getElementById('load-stage');
+    const timerEl = document.getElementById('load-timer');
+    const startTime = Date.now();
+    let stageIdx = 0;
 
-    // Extract profile from transcript using Claude (falls back to keyword scan)
-    const user = APP.STATE.currentUser;
-    const profileData = await extractProfile(conversationHistory, user);
-    if (user) {
-      await DB.markInterviewComplete(user.id);
-      await DB.saveTranscript(user.id, conversationHistory);
-      await DB.saveClientProfile(user.id, {
-        desired_reality: profileData.desiredReality,
-        current_reality: profileData.currentReality,
-        core_beliefs: profileData.coreBeliefs,
-        blocks: profileData.blocks,
-        identity: profileData.identity,
-        values: profileData.values,
-        why: profileData.why,
-        key_language: profileData.keyLanguage,
-      });
-      // Assign initial exercises
-      for (const exId of ['ex-1', 'ex-2', 'ex-4']) {
-        await DB.assignExercise(user.id, exId, 'system').catch(() => {});
+    const tick = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min((elapsed / BUILD_MS) * 100, 99);
+      if (bar) bar.style.width = pct + '%';
+
+      const remaining = Math.max(Math.ceil((BUILD_MS - elapsed) / 1000), 0);
+      if (timerEl) timerEl.textContent = `0:${String(remaining).padStart(2, '0')}`;
+
+      const newStageIdx = Math.min(Math.floor((elapsed / BUILD_MS) * STAGES.length), STAGES.length - 1);
+      if (newStageIdx !== stageIdx) {
+        stageIdx = newStageIdx;
+        if (stageEl) stageEl.textContent = STAGES[stageIdx];
       }
-      // Create initial vision board
-      await DB.saveVisionBoard(user.id, {
-        visionStatement: profileData.desiredReality || 'Your vision is taking shape.',
-        coreDesires: profileData.coreBeliefs || [],
-        identityStatements: ['I am the kind of person who creates results.', 'I am becoming who I need to be.'],
-        values: profileData.values || [],
-        why: profileData.why || '',
-        boardImages: [],
-      });
-      // Update local state
-      APP.STATE.currentUser.interview_completed = true;
-    }
+    }, 200);
 
-    await new Promise(r => setTimeout(r, 4000));
-    clearInterval(interval);
+    const minTimer = new Promise(r => setTimeout(r, BUILD_MS));
+
+    const buildWork = (async () => {
+      // Extract profile from transcript using Claude (falls back to keyword scan)
+      const user = APP.STATE.currentUser;
+      const profileData = await extractProfile(conversationHistory, user);
+      if (user) {
+        await DB.markInterviewComplete(user.id);
+        await DB.saveTranscript(user.id, conversationHistory);
+        await DB.saveClientProfile(user.id, {
+          desired_reality: profileData.desiredReality,
+          current_reality: profileData.currentReality,
+          core_beliefs: profileData.coreBeliefs,
+          blocks: profileData.blocks,
+          identity: profileData.identity,
+          values: profileData.values,
+          why: profileData.why,
+          key_language: profileData.keyLanguage,
+        });
+        // Assign initial exercises
+        for (const exId of ['ex-1', 'ex-2', 'ex-4']) {
+          await DB.assignExercise(user.id, exId, null).catch(() => {});
+        }
+        // Create initial vision board
+        await DB.saveVisionBoard(user.id, {
+          visionStatement: profileData.desiredReality || 'Your vision is taking shape.',
+          coreDesires: profileData.coreBeliefs || [],
+          identityStatements: ['I am the kind of person who creates results.', 'I am becoming who I need to be.'],
+          values: profileData.values || [],
+          why: profileData.why || '',
+          boardImages: [],
+        });
+        // Update local state
+        APP.STATE.currentUser.interview_completed = true;
+      }
+    })();
+
+    // Hold the build screen for the full 45 seconds, no matter how fast the
+    // actual work finishes, but never navigate away before the work is done.
+    await Promise.all([buildWork, minTimer]);
+    clearInterval(tick);
     if (bar) bar.style.width = '100%';
-    await new Promise(r => setTimeout(r, 500));
+    if (timerEl) timerEl.textContent = '0:00';
+    if (stageEl) stageEl.textContent = 'Done. Welcome in.';
+    await new Promise(r => setTimeout(r, 600));
     APP.navigate('dashboard');
   }
 
@@ -482,7 +513,7 @@ ${transcript.slice(0, 8000)}`
   function startChat() {
     const firstName = APP.STATE.currentUser?.firstName || 'there';
     document.getElementById('app').innerHTML = renderInterview();
-    setTimeout(() => {
+    setTimeout(async () => {
       const input = document.getElementById('interview-input');
       const sendBtn = document.getElementById('interview-send');
       if (!input || !sendBtn) return;

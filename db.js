@@ -1,6 +1,10 @@
 // ─── Database Layer, all Supabase operations ────────────────────────────────
 // Replaces all localStorage calls. Every function is async.
 
+// In-memory cache so the synchronous getAvatar() can serve avatar_url values
+// that were already fetched as part of a profile row (see getProfile/getAllClients).
+const AVATAR_CACHE = {};
+
 const DB = {
 
   // ─── Auth ──────────────────────────────────────────────────────────────────
@@ -135,6 +139,7 @@ const DB = {
       .eq('id', userId)
       .single();
     if (error) return null;
+    if (data) AVATAR_CACHE[data.id] = data.avatar_url || null;
     return data;
   },
 
@@ -149,6 +154,7 @@ const DB = {
       .eq('role', 'client')
       .order('created_at', { ascending: false });
     const liveClients = (!error && data) ? data : [];
+    liveClients.forEach(c => { AVATAR_CACHE[c.id] = c.avatar_url || null; });
     // Merge, live clients take precedence, demo fills the rest
     const liveIds = liveClients.map(c => c.id);
     const merged = [...liveClients, ...demoClients.filter(d => !liveIds.includes(d.id))];
@@ -193,7 +199,7 @@ const DB = {
 
   async getClientProfile(userId) {
     if (DB.isDemoUser(userId)) { try { return JSON.parse(localStorage.getItem(`rl_demo_profile_${userId}`) || 'null'); } catch { return null; } }
-    const { data } = await sb.from('client_profiles').select('*').eq('user_id', userId).single();
+    const { data } = await sb.from('client_profiles').select('*').eq('user_id', userId).maybeSingle();
     return data;
   },
 
@@ -229,7 +235,7 @@ const DB = {
       .from('interview_transcripts')
       .select('*')
       .eq('user_id', userId)
-      .single();
+      .maybeSingle();
     return data?.messages || [];
   },
 
@@ -327,7 +333,7 @@ const DB = {
       .select('id')
       .eq('user_id', userId)
       .eq('exercise_id', exerciseId)
-      .single();
+      .maybeSingle();
     if (existing) return;
 
     const { error } = await sb
@@ -487,7 +493,7 @@ const DB = {
 
   async getVisionBoard(userId) {
     if (DB.isDemoUser(userId)) { try { return JSON.parse(localStorage.getItem(`rl_demo_vision_${userId}`) || 'null'); } catch { return null; } }
-    const { data } = await sb.from('vision_boards').select('*').eq('user_id', userId).single();
+    const { data } = await sb.from('vision_boards').select('*').eq('user_id', userId).maybeSingle();
     return data;
   },
 
@@ -509,15 +515,33 @@ const DB = {
     if (error) throw error;
   },
 
-  // ─── Avatar (stored in localStorage per user) ─────────────────────────────
+  // ─── Avatar (real accounts: profiles.avatar_url, cached in memory for
+  // synchronous reads; demo accounts: localStorage only) ─────────────────────
   getAvatar(userId) {
+    if (!userId) return null;
+    if (DB.isDemoUser(userId)) {
+      try { return localStorage.getItem(`rl_avatar_${userId}`) || null; } catch { return null; }
+    }
+    if (Object.prototype.hasOwnProperty.call(AVATAR_CACHE, userId)) return AVATAR_CACHE[userId];
     try { return localStorage.getItem(`rl_avatar_${userId}`) || null; } catch { return null; }
   },
   saveAvatar(userId, dataUrl) {
+    if (DB.isDemoUser(userId)) {
+      try { localStorage.setItem(`rl_avatar_${userId}`, dataUrl); } catch {}
+      return;
+    }
+    AVATAR_CACHE[userId] = dataUrl;
     try { localStorage.setItem(`rl_avatar_${userId}`, dataUrl); } catch {}
+    sb.from('profiles').update({ avatar_url: dataUrl }).eq('id', userId).then(({ error }) => { if (error) console.error('saveAvatar failed', error); });
   },
   removeAvatar(userId) {
+    if (DB.isDemoUser(userId)) {
+      try { localStorage.removeItem(`rl_avatar_${userId}`); } catch {}
+      return;
+    }
+    AVATAR_CACHE[userId] = null;
     try { localStorage.removeItem(`rl_avatar_${userId}`); } catch {}
+    sb.from('profiles').update({ avatar_url: null }).eq('id', userId).then(({ error }) => { if (error) console.error('removeAvatar failed', error); });
   },
 
   // ─── Activity Feed ─────────────────────────────────────────────────────────

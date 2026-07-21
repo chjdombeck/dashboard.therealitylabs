@@ -15,6 +15,7 @@ create table public.profiles (
   is_active boolean not null default true,
   interview_completed boolean not null default false,
   interview_completed_at timestamptz,
+  avatar_url text,
   created_at timestamptz not null default now()
 );
 
@@ -124,6 +125,7 @@ create table public.vision_boards (
   values jsonb default '[]',
   why text,
   board_images jsonb default '[]',
+  vision_interview_done boolean default false,
   updated_at timestamptz not null default now()
 );
 
