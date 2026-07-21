@@ -162,21 +162,21 @@ const DB = {
   },
 
   async createClient({ firstName, lastName, username, password }) {
-    // Generate a hidden system email from username, clients never see or use this
-    const email = DB.usernameToEmail(username);
-    const { data, error } = await sb.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { first_name: firstName, last_name: lastName, role: 'client', username }
-      }
+    // Public signup is disabled project-wide, so account creation goes
+    // through the admin-create-client edge function, which verifies the
+    // caller is a real admin and uses the service-role key server-side.
+    const { data: sessionData } = await sb.auth.getSession();
+    const token = sessionData?.session?.access_token;
+    if (!token) throw new Error('Not signed in.');
+
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/admin-create-client`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ firstName, lastName, username, password }),
     });
-    if (error) throw error;
-    // Store username in profile
-    if (data.user) {
-      await sb.from('profiles').update({ username }).eq('id', data.user.id);
-    }
-    return data.user;
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.error || 'Failed to create client.');
+    return result.user;
   },
 
   async updateProfile(userId, updates) {

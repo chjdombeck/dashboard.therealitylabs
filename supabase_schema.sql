@@ -275,12 +275,15 @@ create policy "Users can read reactions on own activity" on public.coach_reactio
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer as $$
 begin
+  -- Role is never trusted from signup input. Every self-registered or
+  -- client-side-created account starts as 'client'. Promoting to 'admin'
+  -- is a separate, manual step (see admin promotion note below).
   insert into public.profiles (id, first_name, last_name, role)
   values (
     new.id,
     coalesce(new.raw_user_meta_data->>'first_name', 'User'),
     coalesce(new.raw_user_meta_data->>'last_name', ''),
-    coalesce(new.raw_user_meta_data->>'role', 'client')
+    'client'
   );
   return new;
 end;
