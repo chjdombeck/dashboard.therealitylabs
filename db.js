@@ -13,7 +13,6 @@ const DB = {
   async login(username, password) {
     // ── Demo accounts for local testing (bypasses Supabase) ──
     const DEMO_USERS = [
-      { id: 'demo-admin-1', role: 'admin', username: 'carter', password: 'x1337', first_name: 'Carter', last_name: 'Dombeck', is_active: true, interview_completed: true, interview_completed_at: '2024-01-01' },
       { id: 'demo-client-1', role: 'client', username: 'john', password: 'john2024', first_name: 'John', last_name: 'Smith', is_active: true, interview_completed: true, interview_completed_at: '2024-01-01' },
     ];
     const demo = DEMO_USERS.find(u => u.username === username.toLowerCase() && u.password === password);
