@@ -49,14 +49,15 @@
     <div id="vision-chat-messages" style="display:flex;flex-direction:column;gap:16px;margin-bottom:20px;max-height:520px;overflow-y:auto;padding-right:4px;">
       ${visionInterviewDone
         ? `<div style="text-align:center;padding:16px 0;"><div style="font-size:0.875rem;color:var(--text-muted);">Interview complete. Use the sections below, or redo the interview to start fresh.</div></div>`
-        : `<div id="vision-chat-loading" style="display:flex;align-items:center;gap:10px;padding:4px 0;">
-             <div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--gold-line);flex-shrink:0;"><img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" /></div>
-             <div style="font-size:0.875rem;color:var(--text-muted);font-style:italic;">NoaAI is getting ready…</div>
-           </div>`}
+        : `<div style="text-align:center;padding:16px 0;"><div style="font-size:0.875rem;color:var(--text-muted);">Ready when you are.</div></div>`}
     </div>
 
+    ${!visionInterviewDone ? `<div id="vision-begin-area" style="text-align:center;padding:8px 0 4px;">
+      <button id="begin-vision-interview-btn" class="btn-gold" style="padding:12px 28px;font-size:0.9375rem;">Begin Vision Interview</button>
+    </div>` : ''}
+
     <!-- Input area -->
-    <div id="vision-input-area" style="${visionInterviewDone ? 'display:none;' : ''}">
+    <div id="vision-input-area" style="display:none;">
       <div style="display:flex;gap:10px;align-items:flex-end;">
         <textarea id="vision-chat-input" class="input" rows="3" placeholder="Share your answer here… (Enter to send, Shift+Enter for new line)" style="flex:1;resize:none;font-size:0.9375rem;line-height:1.6;"></textarea>
         ${APP.micButtonHTML('vision-chat-mic')}
@@ -210,10 +211,17 @@
         APP.navigate('vision');
       });
 
-      // ── Start interview if not done ───────────────────────────────────────────
-      if (!visionInterviewDone) {
+      // ── Start interview only when the client clicks the button ─────────────
+      document.getElementById('begin-vision-interview-btn')?.addEventListener('click', async () => {
+        document.getElementById('vision-begin-area')?.remove();
+        document.getElementById('vision-input-area').style.display = '';
+        const messagesEl = document.getElementById('vision-chat-messages');
+        if (messagesEl) messagesEl.innerHTML = `<div id="vision-chat-loading" style="display:flex;align-items:center;gap:10px;padding:4px 0;">
+             <div style="width:28px;height:28px;border-radius:50%;overflow:hidden;border:1px solid var(--gold-line);flex-shrink:0;"><img src="NoaAIandLogo.png" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;" /></div>
+             <div style="font-size:0.875rem;color:var(--text-muted);font-style:italic;">NoaAI is getting ready…</div>
+           </div>`;
         await runVisionInterview(user, board, saveBoard, firstName);
-      }
+      });
 
     }, 100);
 
