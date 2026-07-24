@@ -316,16 +316,6 @@
   }
 
   async function generateReflection(questionAnswerPairs, alignmentScore, profile, transcript) {
-    const apiKey = APP.getApiKey();
-    if (!apiKey) {
-      const reflections = [
-        `The pattern you identified today is the program. It's not a character flaw, it's an installed belief running on autopilot. The fact that you can name it means you're no longer fully inside it.`,
-        `Notice the gap between the identity you described and the one that showed up today. That gap is not failure. That gap is the work.`,
-        `What you wrote about your desired reality is already real in your subconscious. The more vividly you return to it, the more the external world reorganizes to match it.`,
-        `The belief you named is the ceiling. Your results will never outgrow it until the identity beneath it changes. You're in the right place.`,
-      ];
-      return reflections[new Date().getDate() % reflections.length];
-    }
     try {
       const transcriptContext = transcript?.length
         ? `\n\nINTERVIEW MEMORY (what they shared in their onboarding):\n${transcript.filter(m=>m.role==='user').map(m=>m.content).join('\n').slice(0,2000)}`
@@ -342,12 +332,7 @@ Never say "great job", "amazing", or any generic praise.
 End with something that points them forward or a slightly uncomfortable truth.
 Never use em dashes (—) anywhere in your response. Use periods or commas instead.`;
 
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: 220, system, messages: [{ role: 'user', content: questionAnswerPairs }] }),
-      });
-      const data = await res.json();
+      const data = await APP.callAI({ system, messages: [{ role: 'user', content: questionAnswerPairs }], maxTokens: 220 });
       return data.content?.[0]?.text || 'Your check-in is recorded.';
     } catch { return 'Your check-in is recorded. The pattern you named is the work.'; }
   }

@@ -222,13 +222,6 @@
 
   // ── Vision Interview Engine ──────────────────────────────────────────────────
   async function runVisionInterview(user, board, saveBoard, firstName) {
-    const apiKey = APP.getApiKey();
-    if (!apiKey) {
-      const loadingEl = document.getElementById('vision-chat-loading');
-      if (loadingEl) loadingEl.outerHTML = `<div style="font-size:0.875rem;color:var(--text-muted);">API key not set. Configure your key in settings to use the vision interview.</div>`;
-      return;
-    }
-
     let onboardingContext = '';
     try {
       const transcript = await DB.getTranscript(user.id);
@@ -307,18 +300,7 @@ Output: respond only with your next message. No labels or meta-commentary.`;
           ? conversationHistory
           : [{ role: 'user', content: `Please begin the vision interview with ${firstName}.` }];
 
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01',
-            'anthropic-dangerous-direct-browser-access': 'true',
-          },
-          body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: 600, system: SYSTEM_PROMPT, messages }),
-        });
-
-        const data = await res.json();
+        const data = await APP.callAI({ system: SYSTEM_PROMPT, messages, maxTokens: 600 });
         const reply = data.content?.[0]?.text || '';
         const isComplete = reply.includes('[VISION_INTERVIEW_COMPLETE]');
         const cleanReply = reply.replace('[VISION_INTERVIEW_COMPLETE]', '').trim();
@@ -330,7 +312,7 @@ Output: respond only with your next message. No labels or meta-commentary.`;
           interviewComplete = true;
           if (typingEl) typingEl.style.display = 'none';
           document.getElementById('vision-input-area').style.display = 'none';
-          await buildSuggestions(conversationHistory, onboardingContext, user, board, saveBoard, apiKey, firstName);
+          await buildSuggestions(conversationHistory, onboardingContext, user, board, saveBoard, firstName);
         }
       } catch(e) {
         appendMessage('assistant', 'Something went wrong. Please refresh and try again.');
@@ -372,7 +354,7 @@ Output: respond only with your next message. No labels or meta-commentary.`;
   }
 
   // ── Build & show suggestions with "Add" buttons ──────────────────────────────
-  async function buildSuggestions(visionHistory, onboardingContext, user, board, saveBoard, apiKey, firstName) {
+  async function buildSuggestions(visionHistory, onboardingContext, user, board, saveBoard, firstName) {
     const messagesEl = document.getElementById('vision-chat-messages');
     const loadingBubble = document.createElement('div');
     loadingBubble.style.cssText = 'display:flex;gap:12px;align-items:flex-start;';
@@ -404,18 +386,7 @@ Use their exact words where possible. Be specific, not generic.
 ${onboardingContext ? `ONBOARDING CONTEXT:\n${onboardingContext.slice(0, 2000)}\n\n` : ''}VISION INTERVIEW:\n${visionConversation}`;
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
-        body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: 1000, messages: [{ role: 'user', content: extractPrompt }] }),
-      });
-
-      const data = await res.json();
+      const data = await APP.callAI({ messages: [{ role: 'user', content: extractPrompt }], maxTokens: 1000 });
       const raw = data.content?.[0]?.text || '{}';
       let parsed = {};
       try { parsed = JSON.parse(raw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim()); } catch(e) {}

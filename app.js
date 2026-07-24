@@ -1,6 +1,13 @@
-// ─── API Key Config ───────────────────────────────────────────────────────────
-function getApiKey() {
-  return localStorage.getItem('rl_api_key') || '';
+// ─── AI Calls ──────────────────────────────────────────────────────────────
+// Every AI call goes through the ai-proxy Supabase edge function, which holds
+// the real Anthropic key server-side. No client ever needs its own key.
+async function callAI({ system, messages, maxTokens = 600 }) {
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+    body: JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: maxTokens, system, messages }),
+  });
+  return res.json();
 }
 
 // ─── State ───────────────────────────────────────────────────────────────────
@@ -291,7 +298,7 @@ function micButtonHTML(id) {
 window.APP = {
   STATE, navigate, login, logout, register, bindEvents,
   getDailyLine, getStreak, todayStr, formatDate, showLoading,
-  EXERCISES_LIBRARY, MEDITATIONS_LIBRARY, BRAND_LINES, getApiKey,
+  EXERCISES_LIBRARY, MEDITATIONS_LIBRARY, BRAND_LINES, callAI,
   attachVoice, micButtonHTML,
 };
 

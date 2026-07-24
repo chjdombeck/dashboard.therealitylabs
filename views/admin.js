@@ -473,33 +473,17 @@
   });
 
   APP.register('admin-settings', () => {
-    const currentKey = APP.getApiKey();
-    const masked = currentKey ? currentKey.slice(0,16)+'••••••••••••••••' : '';
     const content = `
 <div style="max-width:600px;margin:0 auto;padding:32px 24px;">
   <div class="fade-in" style="margin-bottom:32px;"><div class="label" style="margin-bottom:8px;">Configuration</div><div style="font-size:1.875rem;font-weight:700;letter-spacing:-0.02em;">Settings</div></div>
   <div class="card" style="padding:28px;margin-bottom:20px;">
-    <div style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:6px;">Anthropic API Key</div>
-    <div style="font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;">Required for NoaAI's interview, check-in reflections, and journal prompts.</div>
-    ${currentKey?`<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><span style="font-size:0.875rem;color:#4ade80;font-weight:500;">Key active</span><span style="font-size:0.8125rem;color:var(--text-muted);font-family:monospace;">${masked}</span></div>`:
-    `<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:12px 16px;background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:6px;"><span style="font-size:0.875rem;color:#f87171;">No key set, AI running in demo mode</span></div>`}
-    <div><label class="label" style="display:block;margin-bottom:8px;">Update Key</label><input class="input" type="password" id="api-key-input" placeholder="sk-ant-api03-..." style="font-family:monospace;" /></div>
-    <div style="display:flex;gap:10px;margin-top:14px;"><button class="btn-gold" id="save-api-key">Save Key</button>${currentKey?`<button class="btn-ghost" id="clear-api-key" style="color:#f87171;border-color:rgba(239,68,68,0.3);">Remove</button>`:''}</div>
-    <div id="key-saved-msg" style="display:none;margin-top:12px;font-size:0.875rem;color:#4ade80;">Saved.</div>
+    <div style="font-size:1rem;font-weight:600;color:#fff;margin-bottom:6px;">NoaAI</div>
+    <div style="font-size:0.875rem;color:var(--text-muted);margin-bottom:20px;">Powers the onboarding interview, check-in reflections, journal prompts, and the vision board interview.</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.2);border-radius:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><span style="font-size:0.875rem;color:#4ade80;font-weight:500;">Configured, no setup needed</span></div>
   </div>
 </div>`;
 
-    setTimeout(() => {
-      bindAdmin();
-      document.getElementById('save-api-key')?.addEventListener('click', () => {
-        const key = document.getElementById('api-key-input')?.value.trim();
-        if (!key) return;
-        localStorage.setItem('rl_api_key', key);
-        document.getElementById('key-saved-msg').style.display='block';
-        setTimeout(() => APP.navigate('admin-settings'), 1200);
-      });
-      document.getElementById('clear-api-key')?.addEventListener('click', () => { localStorage.removeItem('rl_api_key'); APP.navigate('admin-settings'); });
-    }, 50);
+    setTimeout(() => { bindAdmin(); }, 50);
     return adminShell('admin-settings', content);
   });
 })();

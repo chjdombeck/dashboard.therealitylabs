@@ -278,49 +278,12 @@ Output format: respond only with your next message to the client. No meta-commen
     updateSendButton();
     showTypingIndicator();
 
-    const apiKey = APP.getApiKey();
-    if (!apiKey) {
-      removeTypingIndicator();
-      // Simulate response for demo mode
-      await new Promise(r => setTimeout(r, 1200));
-      const n = APP.STATE.currentUser?.first_name || 'you';
-      const demoResponses = [
-        `I hear you. Let's go deeper on that, when you picture that reality fully realized, ${n}, what's the single most important thing about it? What would it mean about you as a person to have it?`,
-        `That's honest. And that gap you're describing, between where you are and where you want to be, what do you believe is the actual reason it hasn't closed yet? Be specific.`,
-        `Interesting. So there's a part of you that knows what to do, but something keeps stopping you. What story do you tell yourself when that happens?`,
-        `And how long has that pattern been running, ${n}? Can you trace it back to where it started?`,
-        `What would the version of you that already has this believe about themselves that you don't fully believe yet?`,
-        `${n}, this has been a powerful conversation. I have everything I need to begin building your personalized dashboard. It's going to be built around who you're becoming, not who you've been. Give me a moment.`,
-      ];
-      step = Math.min(step, demoResponses.length - 1);
-      const response = demoResponses[step];
-      step++;
-      addMessage('assistant', response);
-      conversationHistory.push({ role: 'assistant', content: response });
-      document.getElementById('interview-step').textContent = `Step ${step} of ~10`;
-      isTyping = false;
-      updateSendButton();
-      if (step >= demoResponses.length) finishInterview();
-      return;
-    }
-
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-5',
-          max_tokens: 600,
-          system: SYSTEM_PROMPT + `\n\nThe client's first name is: ${APP.STATE.currentUser?.firstName || 'the client'}.`,
-          messages: conversationHistory,
-        }),
+      const data = await APP.callAI({
+        system: SYSTEM_PROMPT + `\n\nThe client's first name is: ${APP.STATE.currentUser?.firstName || 'the client'}.`,
+        messages: conversationHistory,
+        maxTokens: 600,
       });
-      const data = await res.json();
       removeTypingIndicator();
       if (data.error) {
         addMessage('assistant', `There was an issue: ${data.error.message || 'Unknown error'}. Please refresh and try again.`);
@@ -453,26 +416,14 @@ Output format: respond only with your next message to the client. No meta-commen
   }
 
   async function extractProfile(history, user) {
-    const apiKey = APP.getApiKey();
     const transcript = history.map(m => `${m.role === 'assistant' ? 'NoaAI' : 'Client'}: ${m.content}`).join('\n\n');
 
-    if (apiKey) {
-      try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01',
-            'anthropic-dangerous-direct-browser-access': 'true',
-          },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-5',
-            max_tokens: 1200,
-            system: `You extract structured profile data from a coaching interview transcript. Return ONLY valid JSON with no markdown or explanation.`,
-            messages: [{
-              role: 'user',
-              content: `Extract the client's profile from this interview transcript. Use ONLY what the client actually said, never invent or genericize. Return JSON exactly in this shape:
+    try {
+      const data = await APP.callAI({
+        system: `You extract structured profile data from a coaching interview transcript. Return ONLY valid JSON with no markdown or explanation.`,
+        messages: [{
+          role: 'user',
+          content: `Extract the client's profile from this interview transcript. Use ONLY what the client actually said, never invent or genericize. Return JSON exactly in this shape:
 {
   "desiredReality": "string, their desired life/business in their own words, vivid and specific",
   "currentReality": "string, where they are now, their current situation",
@@ -486,15 +437,13 @@ Output format: respond only with your next message to the client. No meta-commen
 
 TRANSCRIPT:
 ${transcript.slice(0, 8000)}`
-            }],
-          }),
-        });
-        const data = await res.json();
-        const raw = data.content?.[0]?.text || '{}';
-        const parsed = JSON.parse(raw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
-        if (parsed.desiredReality) return parsed;
-      } catch(e) {}
-    }
+        }],
+        maxTokens: 1200,
+      });
+      const raw = data.content?.[0]?.text || '{}';
+      const parsed = JSON.parse(raw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
+      if (parsed.desiredReality) return parsed;
+    } catch(e) {}
 
     // Fallback: basic keyword extraction from transcript
     const userText = history.filter(m => m.role === 'user').map(m => m.content).join(' ');

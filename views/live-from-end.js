@@ -209,47 +209,17 @@ Output format: respond only with your next message. No meta-commentary. No label
     updateSendBtn();
     showTyping();
 
-    const apiKey = APP.getApiKey();
     const [profile, transcript] = await Promise.all([
       DB.getClientProfile(APP.STATE.currentUser?.id),
       DB.getTranscript(APP.STATE.currentUser?.id),
     ]);
 
-    if (!apiKey) {
-      await new Promise(r => setTimeout(r, 1000));
-      removeTyping();
-      const demoReplies = [
-        "I love that. And when you woke up this morning, what was the first thing that went through your mind? Like before you even got out of bed.",
-        "That's amazing. Okay, tell me about the money side. What did your revenue look like this month? Give me the actual number.",
-        "Yes. And how does your body feel carrying all of that? Like physically, is there a tension that used to be there that's just... gone now?",
-        "I need to know about the house. Walk me through it. What do you see when you walk through the front door?",
-        "And your clients, tell me about who you're working with right now. What are they like? What do they bring to you?",
-      ];
-      const reply = demoReplies[Math.floor(Math.random() * demoReplies.length)];
-      addMessage('assistant', reply);
-      conversationHistory.push({ role: 'assistant', content: reply });
-      isTyping = false;
-      updateSendBtn();
-      return;
-    }
-
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true',
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-5',
-          max_tokens: 300,
-          system: SYSTEM_PROMPT(profile, transcript),
-          messages: conversationHistory,
-        }),
+      const data = await APP.callAI({
+        system: SYSTEM_PROMPT(profile, transcript),
+        messages: conversationHistory,
+        maxTokens: 300,
       });
-      const data = await res.json();
       removeTyping();
       if (data.error) throw new Error(data.error.message);
       const reply = data.content?.[0]?.text || '';
