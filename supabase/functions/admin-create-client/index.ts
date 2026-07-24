@@ -8,7 +8,6 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL')!;
 const SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-const ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY')!;
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -29,21 +28,18 @@ serve(async (req) => {
       });
     }
 
-    // Verify the caller's own session using the anon key, never trust a
-    // client-supplied user id.
-    const callerClient = createClient(SUPABASE_URL, ANON_KEY, {
-      global: { headers: { Authorization: `Bearer ${callerToken}` } },
-    });
-    const { data: callerData, error: callerErr } = await callerClient.auth.getUser();
+    // Service-role client, only ever used server-side, both to verify the
+    // caller's own token and to check their real role / create the account.
+    const adminClient = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
+
+    // Verify the caller's own session, never trust a client-supplied user id.
+    const { data: callerData, error: callerErr } = await adminClient.auth.getUser(callerToken);
     if (callerErr || !callerData?.user) {
       return new Response(JSON.stringify({ error: 'Invalid session' }), {
         status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
 
-    // Service-role client, only ever used server-side, to check the
-    // caller's real role and to create the new account.
-    const adminClient = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
     const { data: callerProfile, error: profileErr } = await adminClient
       .from('profiles')
       .select('role')
